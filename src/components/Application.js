@@ -21,6 +21,8 @@ export default function Application() {
 
   const schedule = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
+
+    // Full appointment component found in index.js
     return (
       <Appointment
         key={appointment.id}

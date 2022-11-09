@@ -7,11 +7,13 @@ import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
 import Error from "./Error";
-
-import useVisualMode from "hooks/useVisualMode";
 import Confirm from "./Confirm";
 
+import useVisualMode from "hooks/useVisualMode";
+
 export default function Appointment(props) {
+
+  // List of different modes for viewing
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -21,7 +23,6 @@ export default function Appointment(props) {
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
-  
   
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -33,6 +34,7 @@ export default function Appointment(props) {
       interviewer
     };
 
+    // True replaces most recent mode in history array
     transition(SAVING, true);
 
     props.bookInterview(props.id, interview)
@@ -51,7 +53,7 @@ export default function Appointment(props) {
   }
   
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (

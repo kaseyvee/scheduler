@@ -9,6 +9,7 @@ export default function useApplicationData() {
     interviewers: {}
   });
 
+  // Sets the day state when clicking through each days on the sidebar
   const setDay = day => setState({ ...state, day });
 
   const daysURL = '/api/days';
@@ -30,6 +31,7 @@ export default function useApplicationData() {
     });
   }, []);
 
+  // Returns a new day object with updated spots when a new appointment is made
   function decrementSpots(state) {
     const currentDay = state.day;
     const filteredDay = state.days.find(day => day.name === currentDay)
@@ -49,14 +51,13 @@ export default function useApplicationData() {
 
     const updatedDay = decrementSpots(state)
     
+    // Returns new array of days with updated spots for the current selected day
     const days = state.days.map(day => {
       if (day.id === updatedDay.id) {
         return updatedDay;
       }
       return day;
     })
-
-    console.log("state: ", state, "days: ", days, "updatedDay: ", updatedDay)
     
     return axios.put(`${appointmentsURL}/${id}`, { interview })
       .then(() => {
