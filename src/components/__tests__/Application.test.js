@@ -107,8 +107,6 @@ describe("Application", () => {
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
-    console.log(prettyDOM(container))
-
     // 3. Click the "Edit" button on the booked appointment.
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
@@ -190,5 +188,25 @@ describe("Application", () => {
     await waitForElement(() => getByText(appointment, "Error"));
 
     expect(getByText(appointment, "Could not delete appointment! Please try again.")).toBeInTheDocument();
+
+    fireEvent.click(queryByAltText(appointment, "Close"));
+
+    expect(getByText(container, "Archie Cohen")).toBeInTheDocument();
+  });
+
+  it("shows original appointment when canceling edit form", async () => {
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+
+    fireEvent.click(queryByAltText(appointment, "Edit"));
+
+    fireEvent.click(queryByText(appointment, "Cancel"));
+
+    expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
   });
 });
