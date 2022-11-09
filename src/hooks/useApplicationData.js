@@ -31,11 +31,17 @@ export default function useApplicationData() {
     });
   }, []);
 
-  // Returns a new day object with updated spots when a new appointment is made
-  function decrementSpots(state) {
-    const currentDay = state.day;
-    const filteredDay = state.days.find(day => day.name === currentDay)
-    return { ...filteredDay, spots: (filteredDay.spots - 1)}
+  // Returns a new days array
+  function updateSpots(state, appointments) {
+    return state.days.map((day => {
+      if (day.name === state.day) {
+        let appointmentsArr = day.appointments.map((id => appointments[id]));
+        let freeSpots = appointmentsArr.filter(({interview}) => !interview).length;
+        return { ...day, spots: freeSpots}
+      }
+
+      return day;
+    }))
   }
 
   function bookInterview(id, interview) {
@@ -49,36 +55,21 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    const updatedDay = decrementSpots(state)
-    
-    // Returns new array of days with updated spots for the current selected day
-    const days = state.days.map(day => {
-      if (day.id === updatedDay.id) {
-        return updatedDay;
-      }
-      return day;
-    })
     
     return axios.put(`${appointmentsURL}/${id}`, { interview })
       .then(() => {
         setState({
           ...state,
           appointments,
-          days
+          days: updateSpots(state, appointments)
         })
       })
-  }
-
-  function incrementSpots(state) {
-    const currentDay = state.day;
-    const filteredDay = state.days.find(day => day.name === currentDay)
-    return { ...filteredDay, spots: (filteredDay.spots + 1)}
   }
 
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: null
     };
     
     const appointments = {
@@ -86,22 +77,13 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    const updatedDay = incrementSpots(state)
-    
-    const days = state.days.map(day => {
-      if (day.id === updatedDay.id) {
-        return updatedDay;
-      }
-      return day;
-    })
-
     return axios.delete(`${appointmentsURL}/${id}`, { interview })
       .then(() => {
-        setState({
-          ...state,
+        setState(prev => ({
+          ...prev,
           appointments,
-          days
-        });
+          days: updateSpots(state, appointments)
+        }));
       })
   }
 
