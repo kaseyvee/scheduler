@@ -1,5 +1,11 @@
 # Interview Scheduler
 
+Interview Scheduler is a single page application that allows users to book interviews with available interviewers.
+
+## Final Product
+
+
+
 ## Setup
 
 Install dependencies with `npm install`.
