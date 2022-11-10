@@ -44,6 +44,8 @@ export default function useApplicationData() {
     }))
   }
 
+  // Creates a new appointment object which is then added (or updated if used when editing appointment) to the object of appointments in state.appointments
+  // Function is called when an appointment is saved, updating the database
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -65,6 +67,8 @@ export default function useApplicationData() {
       })
   }
 
+  // Nullifies an interview with a given id and updates state.appointments object
+  // Function is called when an appointment is deleted
   function cancelInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
