@@ -166,7 +166,7 @@ describe("Application", () => {
     expect(getByText(appointment, "Could not save appointment! Please try again.")).toBeInTheDocument();    
   });
 
-  it("shows the delete error when failing to delete an appointment", async () => {
+  it("shows the delete error when failing to delete an appointment and shows original appointment when closing error message", async () => {
     axios.delete.mockRejectedValueOnce();
 
     const { container } = render(<Application />);
@@ -194,7 +194,7 @@ describe("Application", () => {
     expect(getByText(container, "Archie Cohen")).toBeInTheDocument();
   });
 
-  it("shows original appointment when canceling edit form", async () => {
+  it("shows original appointment when exiting error message", async () => {
     const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
