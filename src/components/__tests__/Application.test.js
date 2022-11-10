@@ -6,7 +6,6 @@ import {
   cleanup,
   waitForElement,
   fireEvent,
-  prettyDOM,
   getAllByTestId,
   getByText,
   getByAltText,
@@ -30,18 +29,6 @@ describe("Application", () => {
         expect(getByText("Leopold Silvers")).toBeInTheDocument();
       });
   });
-  
-  // Same as above but uses async/await syntax instead of raw Promise syntax
-  // Can only use await inside of an async function
-  // it("changes the schedule when a new day is selected", async () => {
-  //   const { getByText } = render(<Application />);
-  
-  //   await waitForElement(() => getByText("Monday"));
-  
-  //   fireEvent.click(getByText("Tuesday"));
-  
-  //   expect(getByText("Leopold Silvers")).toBeInTheDocument();
-  // });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     const { container } = render(<Application />);
@@ -101,37 +88,28 @@ describe("Application", () => {
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
-    // 1. Render the Application.
     const { container } = render(<Application />);
 
-    // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
-    // 3. Click the "Edit" button on the booked appointment.
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
     );
 
     fireEvent.click(queryByAltText(appointment, "Edit"));
 
-    // change name
     fireEvent.change(getByDisplayValue(appointment, "Archie Cohen"), {
       target: { value: "Lydia Miller-Jones" }
     });
 
-    // 4. Check that save is in document
     expect(getByText(appointment, "Save")).toBeInTheDocument();
 
-    // // Click save
     fireEvent.click(queryByText(appointment, "Save"));
 
-    // // 5. Check that saving is in document
     expect(getByText(appointment, "Saving...")).toBeInTheDocument();
 
-    // 6. Wait until Lydia is in document
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
-    // 8. Check that the DayListItem with the text "Monday" also spots don't change.
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );

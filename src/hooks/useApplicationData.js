@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Used in Application.js
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
@@ -31,15 +32,14 @@ export default function useApplicationData() {
     });
   }, []);
 
-  // Returns a new days array
+  // Returns a new days array with updated spots when an interview is booked/cancelled
   function updateSpots(state, appointments) {
     return state.days.map((day => {
       if (day.name === state.day) {
         let appointmentsArr = day.appointments.map((id => appointments[id]));
-        let freeSpots = appointmentsArr.filter(({interview}) => !interview).length;
-        return { ...day, spots: freeSpots}
+        let freeSpotsAmount = appointmentsArr.filter(({interview}) => !interview).length;
+        return { ...day, spots: freeSpotsAmount}
       }
-
       return day;
     }))
   }
@@ -55,7 +55,6 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    
     return axios.put(`${appointmentsURL}/${id}`, { interview })
       .then(() => {
         setState({
@@ -83,7 +82,7 @@ export default function useApplicationData() {
           ...prev,
           appointments,
           days: updateSpots(state, appointments)
-        }));
+        }))
       })
   }
 
