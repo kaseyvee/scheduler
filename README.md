@@ -4,7 +4,8 @@ Interview Scheduler is a single page application that allows users to book inter
 
 ## Final Product
 
-
+!["User creating a new appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointments.png?raw=true)
+!["User creating a new appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointment-form.png?raw=true)
 
 ## Setup
 
