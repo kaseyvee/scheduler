@@ -1,11 +1,19 @@
 # Interview Scheduler
 
-Interview Scheduler is a single page application that allows users to book interviews with available interviewers.
+Interview Scheduler is a single page application that allows users to book, modify, and cancel interviews with available interviewers.
+
 
 ## Final Product
 
-!["User creating a new appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointments.png?raw=true)
-!["User creating a new appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointment-form.png?raw=true)
+### Booking a new appointment
+!["User booking a new appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointment-create.gif?raw=true)
+
+### Modifying an existing appointment
+!["User modifying an existing appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointment-edit.gif?raw=true)
+
+### Cancelling an existing appointment
+!["User cancelling an existing appointment.](https://github.com/kethnal/scheduler/blob/master/docs/appointment-delete.gif?raw=true)
+
 
 ## Setup
 
