@@ -17,6 +17,14 @@ Interview Scheduler is a single page application that allows users to book, modi
 
 ## Setup
 
+### Dependencies
+- axios
+- classnames
+- normalize.css
+- react
+- react-dom
+- react-scripts
+
 ### Scheduler
 1. Install dependencies with `npm install`.
 2. Run the development server with `npm start`.
