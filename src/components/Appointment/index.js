@@ -35,12 +35,12 @@ export default function Appointment(props) {
       interviewer
     };
 
-    // True replaces most recent mode in history array
     transition(SAVING, true);
-
+    
+    // True replaces most recent mode in history array
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW, true))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch(() => transition(ERROR_SAVE));
   }
 
   function deleteInterview() {
