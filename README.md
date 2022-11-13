@@ -17,7 +17,15 @@ Interview Scheduler is a single page application that allows users to book, modi
 
 ## Setup
 
-Install dependencies with `npm install`.
+### Scheduler
+1. Install dependencies with `npm install`.
+2. Run the development server with `npm start`.
+
+### Scheduler API
+3. Clone [this](https://github.com/lighthouse-labs/scheduler-api) repository for the Scheduler API.
+4. Install dependencies with `npm install`.
+5. Run the development server with `npm start`.
+6. If needed, navigate to `http://localhost:8001/api/debug/reset` to reset the database.
 
 ## Running Webpack Development Server
 
